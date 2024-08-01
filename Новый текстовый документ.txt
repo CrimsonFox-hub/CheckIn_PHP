@@ -1,0 +1,50 @@
+            $habitation =  DB::table('medkarta.habitation')
+            ->where('status','=','saselen')
+            ->whereDate('dogovor_date','>=',$start_date)
+            ->whereDate('dogovor_date','<=',$date_end)
+            ->where('hab_type','=',$request['habtypes'])
+            ->where('documenul_id','=',$request['documenuls'])
+            ->get();   
+
+        $habitation =  Habitation::with(["places","habtype"],$level_id)
+        ->where('status','=','saselen')
+        ->whereDate('dogovor_date','>=',$start_date)
+        ->whereDate('dogovor_date','<=',$date_end)
+        ->where('hab_type','=',$request['habtypes'])
+        ->where('documenul_id','=',$request['documenuls'])
+        ->get(); 
+
+
+            $level_id = DB::select('select * from medkarta.habitation  
+            left join medkarta.habitationplace  on medkarta.habitationplace.habitation_id = habitationplace.habitation_id 
+            left join medkarta.place on medkarta.place.id = habitationplace.place_id 
+            left join medkarta.room on medkarta.room.id = medkarta.place.room_id 
+            where medkarta.room.level_id =  :id',['id'=>$level_idd])[0];
+
+                        $level_id = DB::table('medkarta.habitation')  
+            ->leftJoin('medkarta.habitationplace', 'medkarta.habitationplace.habitation_id', '=', 'habitationplace.habitation_id') 
+            ->leftJoin('medkarta.place', 'medkarta.place.id', '=', 'habitationplace.place_id') 
+            ->leftJoin('medkarta.room', 'medkarta.room.id', '=', 'medkarta.place.room_id')
+            ->where('medkarta.room.level_id', '=',  ':id',['id'=>$level_idd])[0];
+
+
+            $habitation = DB::table('medkarta.habitation')  
+            ->leftJoin('medkarta.habitationplace', 'medkarta.habitationplace.habitation_id', '=', 'habitationplace.habitation_id') 
+            ->leftJoin('medkarta.place', 'medkarta.place.id', '=', 'habitationplace.place_id') 
+            ->leftJoin('medkarta.room', 'medkarta.room.id', '=', 'medkarta.place.room_id')
+            ->where('medkarta.room.level_id', '=', ':id',['id'=> $level_idd][0])
+            ->where('status','=','saselen')
+            ->whereDate('dogovor_date','>=',$start_date)
+            ->whereDate('dogovor_date','<=',$date_end)
+            ->where('hab_type','=',$request['habtypes'])
+            ->where('documenul_id','=',$request['documenuls'])
+            ->get();   
+
+
+
+
+                        $level_id = DB::select('select * from medkarta.habitationplace  
+            left join medkarta.habitation  on habitation.id = habitationplace.habitation_id 
+            left join medkarta.place on medkarta.place.id = habitationplace.place_id 
+            left join medkarta.room on medkarta.room.id = medkarta.place.room_id 
+            where medkarta.room.level_id =  :id',['id'=>$level_idd])[0];

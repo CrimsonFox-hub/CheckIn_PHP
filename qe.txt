@@ -1,0 +1,56 @@
+        // $level = Room::pluck('level_id', 'id')->all();
+        // $room = Room::pluck('number', 'id')->all();
+        
+        // //$room -> $level -> number; 
+
+        //   /**   $admissionRep = DB::table('habitation')
+        //    * ->join('room', 'adm_id', '=', 'room.id')
+        //     *->join('docstays', 'adm_id', '=', 'docstay.id')
+        //     *->select('room.level_id', 'room.number', 'docstays.title')
+        //     *->get();
+           
+        //   *  $doctypes = Documentul::all();
+        //   *  $doctypeList = [];
+        //   *  foreach ($doctypes as $item3) {
+        //   *      $doctypesList[$item3->title] = $item3->get();
+        //   *  }
+        //    */ 
+        //     $status = Habitation::$status;   
+		// 	//исправить и найти на что менять habitation
+		// 	$query = Habitation::with(["patients"]);
+            
+        //     $patients = Habitation::all();
+        //     $patientList = [];
+        //     foreach ($patients as $item4) {
+        //         $patientList[$item4->id] = $item4->getFullname();
+        //     }
+             if ($request->has('dogovor_date')) {
+                 $query->whereDate('dogovor_date','=', date("Y-m-d",strtotime($request->get('dogovor_date'))));
+             }
+             if ($request->has('end_date')) {
+                 $query->whereDate('end_date','=', date("Y-m-d",strtotime($request->get('end_date'))));
+             }
+             if ($request->has('name')) {
+                 $query->where('name', 'like', '%'.$request->get('name').'%');
+             }
+             if ($request->has('surname')) {
+                 $query->where('surname', 'like', '%'.$request->get('surname').'%');
+             }
+             if ($request->has('patronymic')) {
+                 $query->where('patronymic', 'like', '%'.$request->get('patronymic').'%');
+             }
+             if ($request->has('birthday')) {
+                 $query->whereDate('birthday','=', date("Y-m-d",strtotime($request->get('birthday'))));
+             }
+             if ($request->has('documentul_id') && $request->get('documentul_id')!='all') {
+                 $query->where('documentul_id', $request->get('documentul_id'));
+             }
+             if ($request->has('level') && $request->get('level')!='all') {
+                 $query->where('level','=', $request->get('level'));
+             }
+             if ($request->has('room') && $request->get('room')!='all') {
+                 $query->where('room','=', $request->get('room'));
+             }
+        //     $habitation = $query->where('status','=','saselen') -> orderBy('id','desc')->get();
+           // return view('admin.admissionRep.index', compact('habitation','started_at','finished_at','birthday', 'documentul_id','level','room'));
+          

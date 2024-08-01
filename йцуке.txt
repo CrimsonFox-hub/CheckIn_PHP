@@ -1,0 +1,75 @@
+        $item=[
+            'checkin'=>$dateCheckIn,
+            'end'=>$dateEnd,
+            //'contains'=>$contains,
+            'patients'=>$patients,
+            'birtday'=>$birtday,
+            'doctype'=>$doctype,
+            'habtype'=>$habtype,
+            'level'=>$level,
+            'room'=>$room,
+
+
+
+
+             <td>{{ $loop->iteration }}</td>
+             <td>{{ $item['patients'] }}</td>
+             <td>{{ $item['birthday'] }}</td>
+             <td>{{ $item['checkin'] }}</td>
+             <td>{{ $item['end'] }}</td>
+             <td>{{ $item['doctype'] }}</td>
+             <td>{{ $item['habtype'] }}</td>
+             <td>{{ $item['room'] }}</td>
+
+             <td>{{ $loop->iteration }}</td>
+             <td>{{ $row->patients }}</td>
+             <td>{{ $row->birthday }}</td>
+             <td>{{ $row->checkin }}</td>
+             <td>{{ $row->end }}</td>
+             <td>{{ $row->doctype }}</td>
+             <td>{{ $row->hab_type }}</td>
+             <td>{{ $row->room }}</td>
+
+                         'id','status', 'start_date', 'end_date', 'checkin', 'end', 'patients', 'birtday', 'doctype', 'habtype', 'level', 'room',
+
+
+                         
+            $dateCheckIn = Habitation::whereDate('dogovor_date','>=',$start_date)->get();
+            $dateEnd = Habitation::whereDate('end_date','>=',$end_date)->get();
+
+            $id = Habitation::all();
+            $status = Habitation::$status;
+
+            $patients = Habitation::all();
+            $patientList = [];
+              foreach ($patients as $item1) 
+                {
+                $patientList[$item1->id] = $item1->getFullname();
+                }
+
+            $birtday = Habitation::whereDate('birthday','=', date("Y-m-d",strtotime($request->get('birthday'))));
+            
+            $documentul = Habitation::all();
+            $doctype = Documenul::where('id', '=', $documentul)->get();
+            $doctypeList = [];
+              foreach ($doctype as $item2)
+                {
+                    $doctypeList[$item2->id] = $item2->get('name');
+                }
+
+            $hab_type = Habitation::all();
+            $habtype = HabitationType::where('id', '=', $hab_type)->get();
+            $habtypeList = [];
+              foreach ($habtype as $item3)
+                 {
+                     $habtypeList[$item3->id] = $item3->get('name');
+                 }
+
+            $level = Room::pluck('id','level_id');
+
+            $room = Room::pluck('id','number');
+//dd($place_id);
+           
+
+        $habitation = Habitation::where('status','=','saselen') -> orderBy('id','desc')->get();
+        

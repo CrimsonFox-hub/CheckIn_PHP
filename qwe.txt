@@ -1,0 +1,77 @@
+
+
+    <div class="portlet box green">
+        <div class="portlet-title">
+        <div class="caption">Отчет о поступлении граждан</div>
+        </div>
+
+        </div>
+        <div class="portlet-body">
+            <form method="POST" action="{{route('dashboard.admissionRep.report')}}">
+                <div class="container">
+                    @php /** @var \Illuminate\Support\ViewErrorBag $errors */@endphp
+                    @if($errors->any())
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="alert alert-danger" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span>x</span>
+                                    </button>
+                                    {{$errors->first()}}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                   
+
+                    <div class="filter_table">
+                        
+                    <table>
+                        <tr>
+                            <td>{!! Form::label('started_at', 'Начальная дата', array('class'=>'control-label')) !!}</td>
+                            <td>{!! Form::text('started_at', '', array('class'=>'form-control', 'tabindex'=> 1)) !!}</td>
+                            <td>{{--{!! Form::label('zvezdochka', '*', array('class'=>'control-label text-danger')) !!}--}}</td>
+                        </tr>
+                        <tr>
+                            <td>{!! Form::label('finished_at', 'Конечная дата', array('class'=>'control-label')) !!}</td>
+                            <td>{!! Form::text('finished_at', '', array('class'=>'form-control', 'tabindex'=> 2)) !!}</td>
+                            <td>{{--{!! Form::label('zvezdochka', '*', array('class'=>'control-label text-danger')) !!}--}}</td>
+                        </tr>
+                        <tr>
+                            <td>{!! Form::label('doctypes', 'Тип проживания', array('class'=>'control-label')) !!}</td>
+                            <td>{!! Form::select('doctypes', '', array('class'=>'form-control form_control_mntk select2', 'tabindex'=> 3)) !!}</td>
+                        </tr>
+                        <tr>
+                            <td>{!! Form::label('doctypes', 'Гражданство', array('class'=>'control-label')) !!}</td>
+                            <td>{!! Form::select('doctypes', '', array('class'=>'form-control form_control_mntk select2', 'tabindex'=> 4)) !!}</td>
+                        </tr>
+                        <tr>
+                            <td>{!! Form::label('level', 'Этаж', array('class'=>'control-label')) !!}</td>
+                            <td>{!! Form::select('level', '', array('class'=>'form-control form_control_mntk select2', 'tabindex'=> 5)) !!}</td>
+                        </tr>
+                        <tr>
+                    </table>
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <button type="submit" class="btn btn-primary">Сформировать отчет</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+         
+	        </div>
+        </div>
+    </div>
+      
+      
+
+      
+
+
+
+
+   
